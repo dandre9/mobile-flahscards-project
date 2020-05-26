@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-export default class NewDeck extends React.Component {
+export default class NewDeckView extends React.Component {
   state = {
     deckTitle: "",
   };
@@ -42,7 +42,7 @@ export default class NewDeck extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: "70%",
+    width: "100%",
   },
   textInput: {
     height: 40,
