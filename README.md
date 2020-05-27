@@ -1,4 +1,6 @@
-# My Universal React Project
+# Mobile Flashcards
+
+This is the project from React Native section of Udacity's React course. This is a Flashcard study game where users can answer questions from cards
 
 <p>
   <!-- iOS -->
@@ -21,9 +23,26 @@
   - If you have native iOS code run `npx pod-install`
 - Run `yarn start` to start the bundler.
 - Open the project in a React runtime to try it:
+
   - iOS: [Client iOS](https://itunes.apple.com/app/apple-store/id982107779)
   - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample)
   - Web: Any web browser
+
+  ## Project structure
+
+```bash
+├── README.md - This file.
+├── package.json # yarn package manager file. It's unlikely that you'll need to modify this.
+├── components # components folder
+│    ├── DeckListView.js # Main component
+│    ├── DeckView.js # Single deck component
+│    ├── NewDeckView.js # New deck component
+│    ├── NewQuestionView.js # New card / question component
+│    └── QuizView.js # Quiz component
+└── utils
+     └── api.js # AsyncStorage component
+
+```
 
 ## Adding Native Code
 
