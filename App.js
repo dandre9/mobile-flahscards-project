@@ -6,47 +6,10 @@ import NewDeckView from "./components/NewDeckView";
 import DeckView from "./components/DeckView";
 import NewQuestionView from "./components/NewQuestionView";
 import QuizView from "./components/QuizView";
-import { saveDeckTitle, addCardToDeck, getDecks } from "./utils/api";
 
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
-  state = {
-    decks: {},
-    selectedDeck: "",
-  };
-
-  componentDidMount() {
-    getDecks().then((response) => {
-      this.setState({ decks: response });
-    });
-  }
-
-  createDeck = (deckTitle) => {
-    const { decks } = this.state;
-
-    if (typeof decks[deckTitle] === "undefined") {
-      const newDeck = saveDeckTitle(deckTitle);
-
-      decks[deckTitle] = newDeck;
-
-      this.setState({ decks });
-    }
-  };
-
-  createQuestion = (question) => {
-    let { decks, selectedDeck } = this.state;
-
-    addCardToDeck(selectedDeck, question);
-    decks[selectedDeck].questions.push(question);
-
-    this.setState({ decks });
-  };
-
-  selectDeck = (deckTitle) => {
-    this.setState({ selectedDeck: deckTitle });
-  };
-
   render() {
     return (
       <NavigationContainer
