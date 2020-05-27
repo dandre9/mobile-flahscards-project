@@ -3,14 +3,16 @@ import {
   View,
   Text,
   TextInput,
+  Picker,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { addCardToDeck } from "../utils/api";
 
 export default class NewQuestionView extends React.Component {
   state = {
     question: "",
-    answer: "",
+    answer: "Correct",
   };
 
   handleChangeInputText = (text, state) => {
@@ -19,12 +21,19 @@ export default class NewQuestionView extends React.Component {
 
   onSubmit = () => {
     const { question, answer } = this.state;
-    const questionObj = {
-      question,
-      answer,
-    };
 
-    this.props.createQuestion(questionObj);
+    if (question) {
+      const questionObj = {
+        question,
+        answer,
+      };
+
+      const { title } = this.props.route.params.deck;
+
+      addCardToDeck(title, questionObj).then((response) => {
+        this.props.navigation.navigate("Deck", { deck: response });
+      });
+    }
   };
 
   render() {
@@ -40,12 +49,15 @@ export default class NewQuestionView extends React.Component {
           value={question}
         />
         <Text>Insert the answer</Text>
-        <TextInput
+        <Picker
           placeholder="Answer"
-          style={styles.textInput}
-          onChangeText={(e) => this.handleChangeInputText(e, "answer")}
-          value={answer}
-        />
+          //   style={styles.textInput}
+          onValueChange={(e) => this.handleChangeInputText(e, "answer")}
+          selectedValue={answer}
+        >
+          <Picker.Item label="Correct" value="Correct" />
+          <Picker.Item label="Incorrect" value="Incorrect" />
+        </Picker>
         <TouchableOpacity onPress={this.onSubmit} style={styles.androidBtn}>
           <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>
@@ -56,6 +68,7 @@ export default class NewQuestionView extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 10,
     width: "100%",
   },
   textInput: {
@@ -68,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     backgroundColor: "black",
     padding: 10,
-    borderRadius: 2,
+    borderRadius: 5,
   },
   btnText: {
     textAlign: "center",
