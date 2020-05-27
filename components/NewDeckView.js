@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { saveDeckTitle } from "../utils/api";
 
 export default class NewDeckView extends React.Component {
   state = {
@@ -17,7 +18,9 @@ export default class NewDeckView extends React.Component {
   };
 
   onSubmit = () => {
-    this.props.createDeck(this.state.deckTitle);
+    saveDeckTitle(this.state.deckTitle).then(() => {
+      this.props.navigation.navigate("Decks");
+    });
   };
 
   render() {
@@ -42,6 +45,7 @@ export default class NewDeckView extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 20,
     width: "100%",
   },
   textInput: {
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     backgroundColor: "black",
     padding: 10,
-    borderRadius: 2,
+    borderRadius: 5,
   },
   btnText: {
     textAlign: "center",
